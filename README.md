@@ -5,12 +5,11 @@ Vamos a mejorar la arquitectura de nuestra aplicación.
 ### Lista de tareas a completar
 
 #### 3 Arquitectura de la aplicación
-Establece los cuatro directorios principales
-* app
+Establece los directorios principales
 * assets
 * utils
 * persistence
-* Añade el directorio templates
+* templates
 
 #### 4 Vistas
 *Descarga el Famework Bootstrap*
@@ -18,13 +17,13 @@ Establece los cuatro directorios principales
 - Añade los CSS y JS de Bootstrap dentro de la carpeta assets y modifica los enlaces de la cabecera para que apuntes a los archivos descargados.
 
 
-*Establece las vistas dentro del directorio app*
+*Establece las vistas dentro del directorio webapp*
 
-- Establece las vistas dentro del directorio app
+- Establece las vistas dentro del directorio webapp
 
 *Persistencia*
 
-- Crea un archivo credentials.json para almacenar la configuración de conexión a base de datos dentro de persistence/conf
+- Crea un archivo PersistenceManager para realizar la conexión a base de datos dentro de persistence/conf
 
 *Gestor de persistencia*
 

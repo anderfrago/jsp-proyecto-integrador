@@ -21,8 +21,7 @@ if( request.getParameter("email")  == null && request.getParameter("password") =
 	email = request.getParameter("email");
 	password = request.getParameter("password");
 	// TODO Esta la consulta de base de datos correspondiente para verificar si el usuario existe
-	UserDAO userDao = new UserDAO();
-	User user = (User) userDao.selectByField(email, "email");	
+
 	
 	if(user == null){
 		error = "<span class='error'>Email/Contraseña invalida</span><br />";
@@ -30,8 +29,6 @@ if( request.getParameter("email")  == null && request.getParameter("password") =
 		// TODO Realiza la gestión de la sesión de usuario:
      	// Almacena en la variables de sesión user el valore de $user
      	
-		SessionHelper.startSession(request.getSession());
-		SessionHelper.setSession(request.getParameter("email"));		
 		
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
@@ -59,7 +56,7 @@ if( request.getParameter("email")  == null && request.getParameter("password") =
 						<!--
                          TODO Corrige el BUG
                           -->
-						<input type="text" name="email" class="form-control" id="email"
+						<input type="text" name="name" class="form-control" id="email"
 							placeholder="yoxti@ejemplo.com" required autofocus>
 					</div>
 				</div>
@@ -69,7 +66,6 @@ if( request.getParameter("email")  == null && request.getParameter("password") =
 					<span class="text-danger align-middle"> <i
 						class="fa fa-close"></i> <% 
 					 // TODO Muestra el mensaje de error
-					 out.println(error);
 					 %>
 					</span>
 				</div>
@@ -92,7 +88,6 @@ if( request.getParameter("email")  == null && request.getParameter("password") =
 					<span class="text-danger align-middle">
 					 <% 
 					 // TODO Muestra el mensaje de error
-					 out.println(error);
 					 %>
 					</span>
 				</div>
