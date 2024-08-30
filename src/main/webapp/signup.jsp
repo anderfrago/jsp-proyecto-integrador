@@ -10,8 +10,6 @@ if(request.getParameter("email") != null){
 	 // TODO Realiza la lectura de los campos del formulario en $user y $pass
 	 // user=""
 	 // pass=""
-	 user = request.getParameter("email").toString();
-	 pass = request.getParameter("password").toString();
 	 
 	 if(user.equals("") || pass.equals("")){
 		 error = "Debes completar todos los campos";
@@ -27,7 +25,6 @@ if(request.getParameter("email") != null){
 		      // TODO
 		      // Establecer el almacenamiento de usuario en una variable "user" almacenada en sesión
 		      // para que al pulsar sobre el menú de Acceder no se le vuelva a preguntar por usuario/contraseña
-		      session.setAttribute("user", user);
 
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 	        dispatcher.forward(request, response);
@@ -67,7 +64,7 @@ if(request.getParameter("email") != null){
 			<div class="col-md-3">
 				<div class="form-control-feedback">
 					<span class="text-danger align-middle"> <i
-						class="fa fa-close"></i> <?php // TODO: Muestra mensaje de error ?>
+						class="fa fa-close"></i> <% //  TODO: Muestra mensaje de error %>
 					</span>
 				</div>
 			</div>
@@ -88,10 +85,7 @@ if(request.getParameter("email") != null){
 			</div>
 			<div class="col-md-3">
 				<div class="form-control-feedback">
-					<span class="text-danger align-middle"> <% //  TODO: Muestra mensaje de error 
-                        if(!error.equals(""))
-                        	out.println(error);
-                        %>
+					<span class="text-danger align-middle"> <% //  TODO: Muestra mensaje de error %>
 					</span>
 				</div>
 			</div>

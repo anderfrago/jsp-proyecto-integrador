@@ -16,16 +16,13 @@ if( request.getParameter("email")  == null && request.getParameter("password") =
 	error = "Debes completar todos los campos<br>";
 } else {
 	// TODO Esta la consulta de base de datos correspondiente para verificar si el usuario existe
-    // ResultSet result = queryMySQL("");
-	String query = "select * from users where email = '"+request.getParameter("email") +"' and password = '"+request.getParameter("password")+"' " ;
-	ResultSet result = queryMysql(query);
+
 	
 	if(!result.next()){
 		error = "<span class='error'>Email/Contraseña invalida</span><br />";
 	} else {
 		// TODO Realiza la gestión de la sesión de usuario:
      	// Almacena en la variables de sesión user el valore de $user
-     	session.setAttribute("user", request.getParameter("email"));
 		
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
@@ -53,7 +50,7 @@ if( request.getParameter("email")  == null && request.getParameter("password") =
 						<!--
                          TODO Corrige el BUG
                           -->
-						<input type="text" name="email" class="form-control" id="email"
+						<input type="text" name="name" class="form-control" id="email"
 							placeholder="yoxti@ejemplo.com" required autofocus>
 					</div>
 				</div>
@@ -62,9 +59,7 @@ if( request.getParameter("email")  == null && request.getParameter("password") =
 				<div class="form-control-feedback">
 					<span class="text-danger align-middle"> <i
 						class="fa fa-close"></i> <% 
-					 // TODO Muestra el mensaje de error
-					 out.println(error);
-					 %>
+					 // TODO Muestra el mensaje de error %>
 					</span>
 				</div>
 			</div>
@@ -85,9 +80,7 @@ if( request.getParameter("email")  == null && request.getParameter("password") =
 				<div class="form-control-feedback">
 					<span class="text-danger align-middle">
 					 <% 
-					 // TODO Muestra el mensaje de error
-					 out.println(error);
-					 %>
+					 // TODO Muestra el mensaje de error %>
 					</span>
 				</div>
 			</div>
