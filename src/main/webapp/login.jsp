@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
-<%@ include file="header.jsp" %>
+<%@ include file="./templates/header.jsp" %>
 
+<%@ page import="utils.SessionHelper" %>
+<%@ page import="persistence.DAO.UserDAO"  %>
+<%@ page import="persistence.model.User"  %>
 
 <% 
-String user, pass, error="";
+String email, password, error="";
 /*
 Al pulsar el boton del formulario se recarga la misma página, volviendo a ejecutar este script.
 En caso de que se haya  completado los valores del formulario se verifica la existencia de usuarios en la base de datos
@@ -15,17 +18,20 @@ para los valores introducidos.
 if( request.getParameter("email")  == null && request.getParameter("password") == null ){
 	error = "Debes completar todos los campos<br>";
 } else {
+	email = request.getParameter("email");
+	password = request.getParameter("password");
 	// TODO Esta la consulta de base de datos correspondiente para verificar si el usuario existe
-    // ResultSet result = queryMySQL("");
-	String query = "select * from users where email = '"+request.getParameter("email") +"' and password = '"+request.getParameter("password")+"' " ;
-	ResultSet result = queryMysql(query);
+	UserDAO userDao = new UserDAO();
+	User user = (User) userDao.selectByField(email, "email");	
 	
-	if(!result.next()){
+	if(user == null){
 		error = "<span class='error'>Email/Contraseña invalida</span><br />";
 	} else {
 		// TODO Realiza la gestión de la sesión de usuario:
      	// Almacena en la variables de sesión user el valore de $user
-     	session.setAttribute("user", request.getParameter("email"));
+     	
+		SessionHelper.startSession(request.getSession());
+		SessionHelper.setSession(request.getParameter("email"));		
 		
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);

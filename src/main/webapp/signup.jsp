@@ -1,33 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="header.jsp"%>
+<%@ include file="./templates/header.jsp" %>
+
+<%@ page import="persistence.DAO.UserDAO"  %>
+<%@ page import="persistence.model.User"  %>
 <%
 
-String user = "", pass = "", error = "";
+String email = "", password = "", error = "";
 
 if(request.getParameter("email") != null){
 	
 	 // TODO Realiza la lectura de los campos del formulario en $user y $pass
-	 // user=""
-	 // pass=""
-	 user = request.getParameter("email").toString();
-	 pass = request.getParameter("password").toString();
+	 // email=""
+	 // password=""
+	 email = request.getParameter("email").toString();
+	 password = request.getParameter("password").toString();
 	 
-	 if(user.equals("") || pass.equals("")){
+	 if(email.equals("") || password.equals("")){
 		 error = "Debes completar todos los campos";
 	 } else {
-		 String query = "SELECT * FROM users WHERE email = '"+user+"'";
-		 ResultSet result = queryMysql(query);
+		// String query = "SELECT * FROM users WHERE email = '"+user+"'";
+		// ResultSet result = queryMysql(query);
+		UserDAO userDao = new UserDAO();
+		User user = (User) userDao.selectByField(email, "email");
+		
+		
 		 
-		 if(result.next()){
+		 if(user == null){
 			 error = "El usuario ya existe";
 		 } else {
-			 statementMysql("INSERT INTO users(email,password) VALUES('"+user+"', '"+pass+"')");
-
-		      // TODO
-		      // Establecer el almacenamiento de usuario en una variable "user" almacenada en sesión
-		      // para que al pulsar sobre el menú de Acceder no se le vuelva a preguntar por usuario/contraseña
-		      session.setAttribute("user", user);
+			String[] args = new String[2];
+			args[0] = email;
+			args[1] = password;
+			userDao.insert(args);	
+		    // TODO
+		    // Establecer el almacenamiento de usuario en una variable "user" almacenada en sesión
+		    // para que al pulsar sobre el menú de Acceder no se le vuelva a preguntar por usuario/contraseña
+		    SessionHelper.startSession(request.getSession());
+			SessionHelper.setSession(request.getParameter("email"));
 
 	        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 	        dispatcher.forward(request, response);

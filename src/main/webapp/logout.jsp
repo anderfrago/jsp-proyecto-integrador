@@ -1,5 +1,7 @@
+<%@ page import="utils.SessionHelper" %>
+
 <%
-session.invalidate(); 
-RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-dispatcher.forward(request, response);
+
+SessionHelper.destroySession(request, response);
+
 %>

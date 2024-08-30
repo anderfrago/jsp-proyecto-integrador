@@ -1,16 +1,13 @@
+<%@ page import="utils.SessionHelper" %> 
 
-<%@ include file="./utils/functions.jsp" %> 
 <%
 String strUser = "(Invitado)";
 
-// La sesión será anulada tras 15 minutos de inactividad.
-session.setMaxInactiveInterval(60*15);
-
 boolean isLoggedin = false;
 
-if(session.getAttribute("user") != null	) {
+if(SessionHelper.isLoggedIn()	) {
 	isLoggedin = true;	
-	strUser = session.getAttribute("user").toString();
+	strUser = SessionHelper.getSession();
 } 
 
 %>
